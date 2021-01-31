@@ -1,6 +1,6 @@
-const { model } = require("mongoose");
+const express = require("express");
 
-const caseLived = (express) => {
+const caseLived = () => {
   const router = express.Router();
 
   router.all("/", (req, res) => {

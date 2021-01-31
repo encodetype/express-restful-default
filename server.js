@@ -3,14 +3,18 @@ const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
 
+// routers
 const everyRouterHandler = require("./modules/everyRouterHandler");
-const routers = require("./routers");
+const endpointRouters = require("./routers");
+
+const rateLimiter = require("./modules/rateLimiter");
 
 const start = async (PORT) => {
   const app = express();
 
   app.use(cors());
   app.use(helmet());
+  app.use(rateLimiter("default"));
 
   app.use(
     morgan("dev", {
@@ -20,10 +24,8 @@ const start = async (PORT) => {
     })
   );
 
-  app.use(everyRouterHandler.caseLived(express));
-
-  app.use(routers);
-
+  app.use(everyRouterHandler.caseLived);
+  app.use(endpointRouters);
   app.use(everyRouterHandler.caseNotFound);
 
   app.listen(PORT);
