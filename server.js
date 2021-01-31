@@ -4,6 +4,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 
 const everyRouterHandler = require("./modules/everyRouterHandler");
+const routers = require("./routers");
 
 const start = async (PORT) => {
   const app = express();
@@ -20,6 +21,9 @@ const start = async (PORT) => {
   );
 
   app.use(everyRouterHandler.caseLived(express));
+
+  app.use(routers);
+
   app.use(everyRouterHandler.caseNotFound);
 
   app.listen(PORT);
