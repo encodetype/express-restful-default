@@ -15,16 +15,9 @@ const start = async (PORT) => {
   app.use(cors());
   app.use(helmet());
   app.use(rateLimiter("default"));
+  app.use(morgan("dev"));
 
-  app.use(
-    morgan("dev", {
-      //   skip: function (req, res) {
-      //     return res.statusCode == 200;
-      //   },
-    })
-  );
-
-  app.use(everyRouterHandler.caseLived);
+  app.all("/", everyRouterHandler.caseLived);
   app.use(endpointRouters);
   app.use(everyRouterHandler.caseNotFound);
 

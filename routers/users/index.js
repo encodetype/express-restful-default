@@ -16,9 +16,9 @@ usersRouter
     console.log("delete users");
     res.sendStatus(200);
   })
-  .patch((req, res) => {
-    console.log("updated users");
-    res.sendStatus(200);
+  .all((req, res) => {
+    console.log("unsupport method");
+    res.sendStatus(405);
   });
 
 module.exports = usersRouter;

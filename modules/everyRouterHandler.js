@@ -1,12 +1,5 @@
-const express = require("express");
-
-const caseLived = () => {
-  const router = express.Router();
-
-  router.all("/", (req, res) => {
-    res.sendStatus(200);
-  });
-  return router;
+const caseLived = (req, res) => {
+  res.sendStatus(200);
 };
 
 const caseNotFound = (req, res) => {
