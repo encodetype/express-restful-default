@@ -3,20 +3,46 @@ const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
 
+const everyRouterHandler = require("./modules/everyRouterHandler");
+
 const start = async (PORT) => {
   const app = express();
 
-  /*
-    Note: 
-        corsOptions: 
-            origin: 'http://example.com' or function(origin,callback),
-            optionsSuccessStatus: 200
-
-    */
   app.use(cors());
+  app.use(helmet());
 
-  /*
-    Note: 
+  app.use(
+    morgan("dev", {
+      //   skip: function (req, res) {
+      //     return res.statusCode == 200;
+      //   },
+    })
+  );
+
+  app.use(everyRouterHandler.caseLived(express));
+  app.use(everyRouterHandler.caseNotFound);
+
+  app.listen(PORT);
+};
+
+module.exports = {
+  start,
+};
+
+/*
+    cors Note: 
+        origin
+        methods
+        allowedHeaders
+        exposedHeaders
+        credentials
+        maxAge
+        preflightContinue
+        optionsSuccessStatus
+    */
+
+/*
+    helmet Note: 
         helmet.contentSecurityPolicy()
         helmet.dnsPrefetchControl()
         helmet.expectCt()
@@ -31,13 +57,3 @@ const start = async (PORT) => {
 
         /X-Powered-By
     */
-  app.use(helmet());
-
-  app.use(morgan("tiny"));
-
-  app.listen(PORT);
-};
-
-module.exports = {
-  start,
-};
