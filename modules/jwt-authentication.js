@@ -3,15 +3,15 @@ const expressJwt = require("express-jwt");
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 
-const { JWT_SECRET_KEY, JWT_ALGORITHM = ["HS256"] } = require("../configs");
+const { JWT_SECRET_KEY, JWT_ALGORITHM } = require("../configs");
 
 const generate = (payloads) =>
-  jwt.sign(payloads, JWT_SECRET_KEY, { algorithm: _.first(JWT_ALGORITHM) });
+  jwt.sign(payloads, JWT_SECRET_KEY, { algorithm: JWT_ALGORITHM });
 
 const setup = (publicPath = []) =>
   expressJwt({
     secret: JWT_SECRET_KEY,
-    algorithms: JWT_ALGORITHM,
+    algorithms: [JWT_ALGORITHM],
     getToken: function (req) {
       const token =
         _.get(req.headers, "authorization") || _.get(req.query, "token");

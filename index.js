@@ -1,17 +1,18 @@
 const server = require("./server");
 const { PORT } = require("./configs");
+const logger = require("./modules/winston-logger");
 
 const main = async () => {
   try {
     await server.start(PORT);
   } catch (error) {
-    console.error(error.message);
+    logger.error(error.message);
     process.exit(1);
   }
 };
 
 const sigtermHandler = () => {
-  console.log("exit completed");
+  logger.info("SIG TERM Events");
 };
 process.on("SIGTERM", sigtermHandler);
 

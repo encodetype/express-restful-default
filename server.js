@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
+const logger = require("./modules/winston-logger");
 
 // routers
 const globalRouterHandler = require("./modules/global-router-handler");
@@ -27,7 +28,7 @@ const start = async (PORT) => {
   app.use(globalRouterHandler.caseNotFound);
 
   const listenHandler = () => {
-    console.log(`Server start at PORT: ${PORT}`);
+    logger.info(`Server start at PORT: ${PORT}`);
   };
   app.listen(PORT, listenHandler);
 };
