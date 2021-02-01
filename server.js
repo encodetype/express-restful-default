@@ -21,38 +21,11 @@ const start = async (PORT) => {
   app.use(endpointRouters);
   app.use(everyRouterHandler.caseNotFound);
 
-  app.listen(PORT);
+  app.listen(PORT, () => {
+    console.log(`Server start at PORT: ${PORT}`);
+  });
 };
 
 module.exports = {
   start,
 };
-
-/*
-    cors Note: 
-        origin
-        methods
-        allowedHeaders
-        exposedHeaders
-        credentials
-        maxAge
-        preflightContinue
-        optionsSuccessStatus
-    */
-
-/*
-    helmet Note: 
-        helmet.contentSecurityPolicy()
-        helmet.dnsPrefetchControl()
-        helmet.expectCt()
-        helmet.frameguard()
-        helmet.hidePoweredBy()
-        helmet.hsts()
-        helmet.ieNoOpen()
-        helmet.noSniff()
-        helmet.permittedCrossDomainPolicies()
-        helmet.referrerPolicy()
-        helmet.xssFilter()
-
-        /X-Powered-By
-    */
