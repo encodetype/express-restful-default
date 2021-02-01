@@ -18,8 +18,7 @@ const start = async (PORT) => {
 
   app.use(cors());
   app.use(helmet());
-  //app.use(bodyParserJson());
-  app.use(bodyParser.json());
+  app.use(bodyParserJson());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(morgan("dev"));
 

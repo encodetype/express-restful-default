@@ -19,7 +19,7 @@ const rateLimiter = (storeType, config = {}) => {
     case "redis":
       return createRateLimit();
     default:
-      throw new Error("rate limit not support `" + storeType + "` type");
+      throw new Error("Rate limit not support `" + storeType + "` type");
   }
 };
 

@@ -37,8 +37,17 @@ const authorize = (role, permissions = []) => {
     ];
   }
 
-  console.log(allPermissions);
   return guard.check([...allPermissions]);
+};
+
+const catchAuthorize = () => {
+  return (error, req, res, next) => {
+    if (error.code === "permission_denied") {
+      return res.sendStatus(403);
+    }
+
+    next();
+  };
 };
 
 module.exports = {
@@ -46,4 +55,5 @@ module.exports = {
   setup,
   catchUnauthorization,
   authorize,
+  catchAuthorize,
 };

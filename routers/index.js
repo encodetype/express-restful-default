@@ -13,9 +13,24 @@ routers.use(
   jwtAuthentication.catchUnauthorization
 );
 
-routers.use("/pages", jwtAuthentication.authorize("admin"), userRouter);
-routers.use("/groups", jwtAuthentication.authorize("group"), userRouter);
-routers.use("/users", jwtAuthentication.authorize("user"), userRouter);
+routers.use(
+  "/pages",
+  jwtAuthentication.authorize("admin"),
+  jwtAuthentication.catchAuthorize(),
+  userRouter
+);
+routers.use(
+  "/groups",
+  jwtAuthentication.authorize("group"),
+  jwtAuthentication.catchAuthorize(),
+  userRouter
+);
+routers.use(
+  "/users",
+  jwtAuthentication.authorize("user"),
+  jwtAuthentication.catchAuthorize(),
+  userRouter
+);
 
 // routers.get("/tool-kit", (req, res) => {
 //   res.json(

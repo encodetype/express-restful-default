@@ -1,4 +1,4 @@
-const RATE_LIMIT_CYCLE = process.env.RATE_LIMIT_CYCLE || 60 * 1000;
+const RATE_LIMIT_CYCLE = process.env.RATE_LIMIT_CYCLE || 60000;
 const RATE_LIMIT_MAX_PER_CYCLE = process.env.RATE_LIMIT_MAX_PER_CYCLE || 1000;
 
 module.exports = {
