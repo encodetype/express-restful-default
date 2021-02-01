@@ -2,17 +2,16 @@
 
 ## Dependencies used
 
-express
-cors
-helmet
-body-parser
-limit
-jsonwebtoken
-jwt
-express-jwt
-express-jwt-permissions
-lodash
-express-rate-limit
+- express
+- cors
+- helmet
+- body-parser
+- express-rate-limit
+- jsonwebtoken
+- jwt
+- express-jwt
+- express-jwt-permissions
+- lodash
 
 ## Configuration
 
