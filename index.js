@@ -5,13 +5,13 @@ const main = async () => {
   try {
     await server.start(PORT);
   } catch (error) {
-    console.log(error);
     process.exit(1);
   }
 };
 
-process.on("SIGTERM", () => {
-  console.log("completed");
-});
+const sigtermHandler = () => {
+  console.log("exit completed");
+};
+process.on("SIGTERM", sigtermHandler);
 
 main();

@@ -2,28 +2,46 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
+const bodyParser = require("body-parser");
 
 // routers
-const everyRouterHandler = require("./modules/everyRouterHandler");
+const globalRouterHandler = require("./modules/global-router-handler");
 const endpointRouters = require("./routers");
 
-const rateLimiter = require("./modules/rateLimiter");
+const rateLimiter = require("./modules/rate-limiter");
+const bodyParser = require("body-parser");
+
+const bodyParserJson = (req, res, next) => {
+  return () => {
+    bodyParser.json()(req, res, (err) => {
+      if (err) {
+        return res.sendStatus(400);
+      }
+
+      next();
+    });
+  };
+};
 
 const start = async (PORT) => {
   const app = express();
 
+  app.use(rateLimiter("default"));
+
   app.use(cors());
   app.use(helmet());
-  app.use(rateLimiter("default"));
+  app.use(bodyParserJson());
+  app.use(bodyParser.urlencoded({ extended: true }));
   app.use(morgan("dev"));
 
-  app.all("/", everyRouterHandler.caseLived);
+  app.all("/", globalRouterHandler.caseLived);
   app.use(endpointRouters);
-  app.use(everyRouterHandler.caseNotFound);
+  app.use(globalRouterHandler.caseNotFound);
 
-  app.listen(PORT, () => {
+  const listenHandler = () => {
     console.log(`Server start at PORT: ${PORT}`);
-  });
+  };
+  app.listen(PORT, listenHandler);
 };
 
 module.exports = {
