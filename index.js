@@ -5,6 +5,7 @@ const main = async () => {
   try {
     await server.start(PORT);
   } catch (error) {
+    console.error(error.message);
     process.exit(1);
   }
 };
